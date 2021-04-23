@@ -16,6 +16,7 @@ path = './C50train/'
 authors = os.listdir(path)[:5]
 vect = CountVectorizer()
 def vector_properties(vect= CountVectorizer() , tokenizer = TreebankWordTokenizer()):
+    """add features to the vectorizer"""
     vect.set_params(tokenizer = tokenizer.tokenize)
 
     #removing english words
@@ -33,10 +34,8 @@ def vector_properties(vect= CountVectorizer() , tokenizer = TreebankWordTokenize
     return vect
 
 
-vect = vector_properties(CountVectorizer(),TreebankWordTokenizer())
-print(vect)
-
 def text_and_label(authors):
+    """returns the text and labels(authors) of the text"""
     trainX = np.array([])
     labels = []
     for auth in authors:
@@ -57,6 +56,7 @@ def text_and_label(authors):
 # print(trainX,labels)
     
 def splitting(trainX,labels):
+    """uses train_test_split"""
     
     X_train,X_test,y_train,y_test = train_test_split(trainX, labels, train_size = 0.8)
     X_train = pd.Series(X_train)
@@ -67,8 +67,6 @@ def splitting(trainX,labels):
  
  
 def main():
-    import pandas as pd
-    
     vect = vector_properties(CountVectorizer(),TreebankWordTokenizer())
     trainX,labels = text_and_label(authors)
     
@@ -79,11 +77,13 @@ def main():
     train_vectors = vect.transform(X_train)
     test_vectors = vect.transform(X_test)
     data = pd.DataFrame(train_vectors.toarray(),columns = vect.get_feature_names()).head()
+    
     print(data)
     nb = GaussianNB()
     nb.fit(train_vectors.toarray(),y_train)
     y_pred = cross_val_predict(nb, test_vectors.toarray(), y_test, cv = 10)
     report = classification_report(y_test,y_pred)
+    
     print("Classification Report : ", report)
     accuracy =  accuracy_score(y_pred,y_test)
     print("Accuracy: " ,accuracy)
