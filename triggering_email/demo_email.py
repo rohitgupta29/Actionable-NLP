@@ -1,8 +1,8 @@
 import os
 import smtplib
 
-EMAIL_ADDRESS = 'infomationrohit@gmail.com'
-EMAIL_PASSWORD = 9419131674
+EMAIL_ADDRESS = 'infomationxxxxx@gmail.com'
+EMAIL_PASSWORD = XXXXXXXX
 
 #
 # EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
@@ -22,5 +22,5 @@ with smtplib.SMTP('smtp.gmail.com',587) as smtp:
 
     msg = f'Subject: {subject}\n\n{body}'
 
-    smtp.sendmail(EMAIL_ADDRESS,rohit.ajaygupta@gmail.com, msg)
+    smtp.sendmail(EMAIL_ADDRESS,xxxx.ajaygupta@gmail.com, msg)
 
